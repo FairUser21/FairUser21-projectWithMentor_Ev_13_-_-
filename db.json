@@ -1,0 +1,11 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "price": 1,
+      "type": 30,
+      "img": "wda"
+    }
+  ]
+}
