@@ -1,23 +1,19 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
-import Admin from "./pages/Admin";
-import Add from "./components/Admin/Add/Add";
-import List from "./components/Admin/List/List";
+import Products from "./pages/Products";
+
+const PUBLIC_ROUTES = [
+  { link: "/", element: <Home />, id: 1 },
+  { link: "/products", element: <Products />, id: 4 },
+];
 
 const MyRoutes = () => {
   return (
     <Routes>
-      <Route element={<MainLayout />}>
-        <Route path="/list" element={<List />} />
-        {/* <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<Admin />}>
-          <Route index element={<List />} />
-
-          <Route path="/admin/add" element={<Add />} />
-        </Route> */}
-      </Route>
+      {PUBLIC_ROUTES.map((item) => (
+        <Route path={item.link} element={item.element} key={item.id} />
+      ))}
     </Routes>
   );
 };
