@@ -11,8 +11,17 @@ const ProdList = () => {
   }, []);
 
   return (
-    <Box>
-      {products ? products.map((item) => <OneProd item={item} />) : null}
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "space-around",
+        marginRight: "30px",
+      }}
+    >
+      {products
+        ? products.map((item) => <OneProd key={item.id} item={item} />)
+        : null}
     </Box>
   );
 };
