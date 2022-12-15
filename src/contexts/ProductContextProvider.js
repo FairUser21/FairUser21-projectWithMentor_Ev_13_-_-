@@ -6,13 +6,17 @@ export const productContext = createContext();
 
 const INIT_STATE = {
   products: [],
+  productDetails: {},
 };
 
 function reducer(state = INIT_STATE, action) {
   switch (action.type) {
     case "GET_PRODUCTS":
       return { ...state, products: action.payload };
+    case "GET_PRODUCT_DETAIL":
+      return { ...state, productDetails: action.payload };
     default:
+      return state;
   }
 }
 
@@ -31,6 +35,19 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  const getProductDetails = async (id) => {
+    const res = await axios.get(`${API}/${id}`);
+    dispatch({
+      type: "GET_PRODUCT_DETAIL",
+      payload: res.data,
+    });
+  };
+
+  const saveEditProduct = async (newProduct, id) => {
+    await axios.patch(`${API}/${id}`, newProduct);
+    getProducts();
+  };
+
   const addProduct = async (prod) => {
     try {
       let res = await axios.post(API, prod);
@@ -39,9 +56,22 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  const deleteProduct = async (id) => {
+    await axios.delete(`${API}/${id}`);
+    getProducts();
+  };
+
   return (
     <productContext.Provider
-      value={{ products: state.products, addProduct, getProducts }}
+      value={{
+        products: state.products,
+        productDetails: state.productDetails,
+        addProduct,
+        getProducts,
+        deleteProduct,
+        getProductDetails,
+        saveEditProduct,
+      }}
     >
       {children}
     </productContext.Provider>

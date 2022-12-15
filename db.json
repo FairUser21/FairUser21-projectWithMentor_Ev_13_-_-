@@ -6,6 +6,20 @@
       "price": 1,
       "type": 30,
       "img": "wda"
+    },
+    {
+      "title": "ty",
+      "price": 987,
+      "img": "yt",
+      "type": "yt",
+      "id": 2
+    },
+    {
+      "title": "qwe",
+      "price": 123,
+      "img": "qwe",
+      "type": "qwe",
+      "id": 3
     }
   ]
 }
