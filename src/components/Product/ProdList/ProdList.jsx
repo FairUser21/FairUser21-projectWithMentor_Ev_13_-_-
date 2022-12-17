@@ -9,6 +9,7 @@ const ProdList = () => {
   useEffect(() => {
     getProducts();
   }, []);
+  console.log(products);
 
   return (
     <Box

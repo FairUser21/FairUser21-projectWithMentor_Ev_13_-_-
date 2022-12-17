@@ -12,11 +12,17 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authContext } from "../../contexts/AuthContextProvider";
+import { Badge } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
-
+const pages = [
+  { name: "ABOUT US", link: "/about", id: 1 },
+  { name: "CONTACT US", link: "/contacts", id: 2 },
+  { name: "PRODUCTS", link: "/products", id: 3 },
+  // { name: 'ADMIN', link: '/admin', id: 4 },
+];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -36,31 +42,30 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  const {
+    handleLogout,
+    user: { email },
+  } = React.useContext(authContext);
   const navigate = useNavigate();
+  const ADMIN = "admin@gmail.com";
+
+  const { handleLogOut } = React.useContext(authContext);
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position="static" elevation={3}>
+      <Container maxWidth="xl" sx={{ background: "white" }}>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-
           <Typography
-            onClick={() => navigate("/admin")}
             variant="h6"
             noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+            component="div"
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            LOGO
+            <img
+              id="logo"
+              src="https://demo.xpeedstudio.com/marketo/wp-content/uploads/2020/06/logo_3.png"
+              alt=""
+            />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -70,7 +75,6 @@ function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
             >
               <MenuIcon />
             </IconButton>
@@ -80,6 +84,7 @@ function Navbar() {
               anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "left",
+                color: "black",
               }}
               keepMounted
               transformOrigin={{
@@ -92,72 +97,97 @@ function Navbar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <Box>
+                {pages.map((page) => (
+                  <MenuItem key={page.id} onClick={handleCloseNavMenu}>
+                    <Link to={page.link}>
+                      <Typography
+                        sx={{
+                          ml: "auto",
+                          my: 1,
+                          color: "black",
+                          display: "block",
+                        }}
+                      >
+                        {page.name}
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Box>
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
-            component="a"
-            href=""
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
+            <img
+              id="logo"
+              src="https://demo.xpeedstudio.com/marketo/wp-content/uploads/2020/06/logo_3.png"
+              alt=""
+            />
+          </Typography>
+          <Box
             sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
+              justifyContent: "center",
               flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              display: { xs: "none", md: "flex" },
             }}
           >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+              <Link to={page.link} key={page.id}>
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{
+                    ml: "auto",
+                    my: 2,
+                    color: "black",
+                    display: "block",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {page.name}
+                </Button>
+              </Link>
             ))}
+            {/* // -------------------------------------------------------------------- */}
+
+            {email == ADMIN ? (
+              <Link to="/admin">
+                <Button sx={{ my: 2, color: "black" }}>ADMIN PAGE</Button>
+              </Link>
+            ) : (
+              <Link to="/cart">
+                <Button sx={{ my: 2, color: "black" }}>
+                  <Badge /*badgeContent={count}*/ color="error">
+                    <ShoppingCartIcon />
+                  </Badge>
+                </Button>
+              </Link>
+            )}
           </Box>
+          {/* // -------------------------------------------------------------------- */}
+
+          {/* // -------------------------------------------------------------------- */}
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            {email ? (
+              <Button
+                sx={{ color: "black", fontWeight: "bold" }}
+                onClick={handleLogout}
+              >
+                LOGOUT
+              </Button>
+            ) : (
+              <Link to="/auth">
+                <Button sx={{ color: "black", fontWeight: "bold" }}>
+                  LOGIN
+                </Button>
+              </Link>
+            )}
+            {/* // -------------------------------------------------------------------- */}
           </Box>
         </Toolbar>
       </Container>
