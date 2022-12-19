@@ -4,22 +4,36 @@
       "id": 1,
       "title": "json-server",
       "price": 1,
-      "type": 30,
+      "type": "laptop",
       "img": "wda"
     },
     {
       "title": "ty",
       "price": 987,
       "img": "yt",
-      "type": "yt",
+      "type": "watch",
       "id": 2
     },
     {
       "title": "qwe",
       "price": 123,
       "img": "qwe",
-      "type": "qwe",
+      "type": "telephone",
       "id": 3
+    },
+    {
+      "title": "hfgh",
+      "price": 111,
+      "img": "yt",
+      "type": "watch",
+      "id": 4
+    },
+    {
+      "title": "vsd",
+      "price": 888,
+      "img": "qwe",
+      "type": "telephone",
+      "id": 5
     }
   ]
 }

@@ -1,6 +1,7 @@
 import { API } from "../helpers/const";
 import axios from "axios";
 import React, { createContext, useReducer } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const productContext = createContext();
 
@@ -23,9 +24,12 @@ function reducer(state = INIT_STATE, action) {
 const ProductContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const getProducts = async () => {
     try {
-      let res = await axios.get(API);
+      let res = await axios.get(`${API}${window.location.search}`);
       dispatch({
         type: "GET_PRODUCTS",
         payload: res.data,
@@ -61,6 +65,23 @@ const ProductContextProvider = ({ children }) => {
     getProducts();
   };
 
+  // ! FIlTER
+
+  const fetchByParams = async (query, value) => {
+    const search = new URLSearchParams(location.search);
+    // https://github.com/typicode/json-server/?q
+    if (value === "all") {
+      search.delete(query);
+    } else {
+      search.set(query, value);
+    }
+
+    const url = `${location.pathname}?${search.toString()}`;
+    console.log(search);
+    console.log(url);
+    navigate(url);
+  };
+
   return (
     <productContext.Provider
       value={{
@@ -71,6 +92,7 @@ const ProductContextProvider = ({ children }) => {
         deleteProduct,
         getProductDetails,
         saveEditProduct,
+        fetchByParams,
       }}
     >
       {children}
