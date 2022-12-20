@@ -1,37 +1,30 @@
 {
   "products": [
     {
-      "id": 1,
-      "title": "json-server",
-      "price": 1,
-      "type": "laptop",
-      "img": "wda"
-    },
-    {
       "title": "ty",
       "price": 987,
-      "img": "yt",
+      "img": "https://static.zerochan.net/Lycoris.Recoil.full.3706694.jpg",
       "type": "watch",
       "id": 2
     },
     {
       "title": "qwe",
       "price": 123,
-      "img": "qwe",
+      "img": "https://i.pinimg.com/originals/7b/ef/90/7bef90845b56b5c4d04db30fa196fd0c.jpg",
       "type": "telephone",
       "id": 3
     },
     {
       "title": "hfgh",
       "price": 111,
-      "img": "yt",
+      "img": "https://images.alphacoders.com/244/244443.jpg",
       "type": "watch",
       "id": 4
     },
     {
       "title": "vsd",
       "price": 888,
-      "img": "qwe",
+      "img": "https://cs5.pikabu.ru/post_img/big/2015/02/21/9/1424527213_777879975.jpeg",
       "type": "telephone",
       "id": 5
     }

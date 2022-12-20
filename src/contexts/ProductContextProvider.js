@@ -77,8 +77,11 @@ const ProductContextProvider = ({ children }) => {
     }
 
     const url = `${location.pathname}?${search.toString()}`;
+    // console.log(location);
     console.log(search);
-    console.log(url);
+    console.log(search.toString());
+    // console.log(url);
+    // console.log(window.location.search);
     navigate(url);
   };
 
