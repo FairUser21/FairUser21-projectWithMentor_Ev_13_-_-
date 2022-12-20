@@ -7,16 +7,21 @@ import Typography from "@mui/material/Typography";
 import { productContext } from "../../../contexts/ProductContextProvider";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { cartContext } from "../../../contexts/СartContextProvider";
+import { IconButton } from "@mui/material";
 
 export default function OneProd({ item }) {
   const { deleteProduct } = useContext(productContext);
+  const { addProductToCart, checkProductInCart } = useContext(cartContext);
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 290 }}>
       <CardMedia
         component="img"
         height="140"
+        sx={{ width: 200 }}
         image={item.img}
         alt="green iguana"
       />
@@ -38,6 +43,11 @@ export default function OneProd({ item }) {
         <Button size="small" onClick={() => navigate(`/edit/${item.id}`)}>
           Edit
         </Button>
+        <IconButton size="small" onClick={() => addProductToCart(item)}>
+          <ShoppingCartIcon
+            color={checkProductInCart(item.id) ? "primary" : ""}
+          />
+        </IconButton>
       </CardActions>
     </Card>
   );

@@ -42,7 +42,7 @@ const ProdList = () => {
   }, [searchParams]);
 
   function currentData() {
-    const begin = page - 1;
+    const begin = (page - 1) * 3;
     const end = begin + 3;
     return products.slice(begin, end);
   }
@@ -113,19 +113,19 @@ const ProdList = () => {
                     label="all"
                   />
                   <FormControlLabel
-                    value="telephone"
+                    value="daily"
                     control={<Radio />}
-                    label="telephone"
+                    label="daily"
                   />
                   <FormControlLabel
-                    value="laptop"
+                    value="action"
                     control={<Radio />}
-                    label="laptop"
+                    label="action"
                   />
                   <FormControlLabel
-                    value="watch"
+                    value="fantasy"
                     control={<Radio />}
-                    label="watch"
+                    label="fantasy"
                   />
                 </RadioGroup>
               </FormControl>

@@ -47,6 +47,7 @@ function Navbar() {
     user: { email },
   } = React.useContext(authContext);
   const navigate = useNavigate();
+
   const ADMIN = "admin@gmail.com";
 
   const { handleLogOut } = React.useContext(authContext);
